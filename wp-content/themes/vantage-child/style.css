@@ -1,0 +1,233 @@
+/*
+ Theme Name:   Vantage Child
+ Description:  Vantage Child Theme
+ Author:       Sam Strauss
+ Author URI:   http://example.com
+ Template:     vantage
+ Version:      1.0.0
+ Tags:         light, dark, two-columns, right-sidebar, responsive-layout, accessibility-ready
+ Text Domain:  vantage-child
+*/
+
+@import url("../vantage/style.css");
+
+
+/* =Theme customization starts here
+-------------------------------------------------------------- */
+/*
+p{
+color: #ffffff;
+font-family: "Tahoma";
+font-size: 13px;
+margin-bottom: 1.5em;
+} */
+
+a{
+color: #fff;
+}
+
+a:hover, a:focus {
+color: #FFF0CF;
+}
+
+a:active{
+color: A6FFEC;
+}
+
+#main{
+background: #7AC2C5;
+padding: 20px 10px;
+}
+
+#vanilla-comments{
+background: #6DAEB0;
+margin: 10px;
+}
+
+
+.entry-content p, .entry-content > ul, .entry-content > li, .entry-content > dl, .entry-content pre, .entry-content code, .entry-content blockquote
+{
+color: #ffffff;
+font-family: "Tahoma";
+font-size: 13px;
+margin-bottom: 1.5em;
+}
+
+article.post .entry-header h1.entry-title, article.page .entry-header h1.entry-title {
+color: #ffffff;
+}
+
+article.post .entry-categories, article.page .entry-categories{
+color:#eee;
+}
+article.post .entry-categories a, article.page .entry-categories a{
+color:#ddd;
+}
+
+article.post .entry-header h1.entry-title a, article.page .entry-header h1.entry-title a{
+color: #ffffff;
+font-family: "Tahoma";
+font-size: 22px;
+}
+
+.entry-content h1, .entry-content h2, .entry-content h3, .entry-content h4, .entry-content h5, .entry-content h6
+{
+color: #ffffff;
+}
+
+article.post .entry-header .entry-meta, article.page .entry-header .entry-meta{
+color: #eee;
+font-family: "Tahoma";
+font-size: 11px;
+}
+article.post .entry-header .entry-meta a, article.page .entry-header .entry-meta a{
+color: #cdd;
+}
+.entry-content{
+color: #ffffff;
+}
+
+/*
+.entry-content img{
+border: 2px solid #b5744c;
+}*/
+
+.entry-content img {
+
+-webkit-border-radius: 0px;
+-moz-border-radius: 0px;
+border-radius: 0px;
+-webkit-box-shadow: none;
+-moz-box-shadow: none;
+box-shadow: none;
+}
+
+article.post, article.page{
+zoom: 1;
+margin-bottom: 20px;
+padding-bottom: 20px;
+/*border-bottom: 1px solid #518082;*/
+border-bottom: none;
+
+}
+
+article.post:last-child, article.page:last-child{
+padding-bottom: 20px;
+}
+
+#comments-title, #reply-title {
+color: #fff;
+border-bottom-color: #eee;
+}
+
+#commentform label{
+color: #fff;
+}
+
+#commentform .form-allowed-tags, #commentform .form-allowed-tags code, #commentform .comment-notes {
+color: #fff;
+}
+
+#commentform .logged-in-as{
+color: #fff;
+}
+
+#comments .commentlist article .comment-author{
+color: #fff;
+}
+#comments .commentlist article .comment-meta a{
+color: #eee;
+}
+
+.post
+{
+	background-color: #6daeb0;
+	padding: 10px;
+}
+
+.comments-area
+{
+	background-color: #6daeb0;
+	padding: 10px;
+}
+
+header#masthead {
+background: #7ac2c5;
+padding: 0 0 0 0;
+-ms-box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+box-sizing: border-box;
+}
+
+header#masthead hgroup{
+padding-top: 15px;
+padding-bottom: 15px;
+}
+
+.main-navigation{
+border-top: 1px dashed #ddd;
+border-bottom: 1px dashed #ddd;
+background-color: #6daeb0;
+}
+
+.nain-navigation a{
+color: #fff;
+}
+
+.main-navigation ul li:hover > a{
+/*background:#8BDEE0;
+color: #333;
+*/
+background:#E8D2B1;
+color: #333;
+
+}
+
+.main-navigation ul li a{
+padding: 10px 35px;
+color: #fff;
+font-size: 1.1em;
+}
+
+.main-navigation [class^="icon-"]{
+color:#fff;
+}
+.main-navigation a:hover [class^="icon-"]{
+color:#333;
+}
+
+.entry-content a {
+color: #fff;
+-webkit-transition: all 0.2s ease;
+-moz-transition: all 0.2s ease;
+-o-transition: all 0.2s ease;
+transition: all 0.2s ease;
+}
+
+.entry-content a:hover {
+color: #FFF0CF;
+}
+.entry-content a:visited {
+color: #ddd;
+}
+.entry-content a:active {
+color: #a6ffec;
+}
+
+.theme-light.slider-wrapper{
+background: #7ac2c5;
+}
+
+.post-navigation, #image-navigation {
+margin-top: -10px;
+}
+
+.post-navigation a:hover, #image-navigation a:hover{
+color: #646464;
+}
+
+.origin-widget.origin-widget-button-simple-white a{
+padding: 10px 25px !important;
+font-size: 1em !important;
+}
