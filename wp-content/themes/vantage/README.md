@@ -1,6 +1,6 @@
 Vantage Theme
 ---------------
-Vantage is a multipurpose WordPress theme, based on _s with integration into SiteOrigin's extras framework.
+Vantage is a multipurpose WordPress theme, based on _s with integration into SiteOrigin's Extras framework.
 
 
 License
@@ -31,7 +31,7 @@ HTML5 Shiv, Copyright 2011 Alexander Farkas
 Released under a dual MIT/GPL2 License
 Source: https://code.google.com/p/html5shiv/
 
-FitVids, Copyright 2013, Chris Coyier
+FitVids, Copyright 2013 Chris Coyier
 Released under the WTFPL license - http://sam.zoy.org/wtfpl/
 Source: http://fitvidsjs.com/
 
@@ -68,6 +68,21 @@ This theme is built around the SiteOrigin extras framework contained in the fold
 
 Change Log
 ---------------
+
+#### 1.2.3
+* Added theme tour to help setup.
+* Framework updates (theme setting now support tour and preview).
+
+#### 1.2.2
+* Fixed hgroup based customizer settings.
+* Framework updates.
+
+#### 1.2.1
+* Removed default logo as per theme review requirements.
+* Fixed logo width for mobile devices in logo-in-menu layout.
+* Replaced sprites with iconic fonts.
+* Removed hgroup tag.
+* Premium: added more customizations.
 
 #### 1.2
 * Fixed pagination issue.

@@ -73,7 +73,7 @@ jQuery( function ( $ ) {
             var attachment = frame.state().get('selection').first().attributes;
 
             $c.find('.current .title' ).html(attachment.title);
-            $c.find('input[type=hidden]' ).val(attachment.id);
+            $c.find('input[type=hidden]' ).val(attachment.id).change();
 
             if(typeof attachment.sizes != 'undefined'){
                 if(typeof attachment.sizes.thumbnail != 'undefined')
@@ -84,7 +84,7 @@ jQuery( function ( $ ) {
             else{
                 $c.find('.current .thumbnail' ).attr('src', attachment.icon).fadeIn();
             }
-            
+
             frame.close();
         });
 
@@ -118,26 +118,31 @@ jQuery( function ( $ ) {
             var $$ = $(this ).closest('td');
             
             $$.find('.current .title' ).html('');
-            $$.find('input[type=hidden]' ).val('');
+            $$.find('input[type=hidden]' ).val('').change();
             $$.find('.current .thumbnail' ).fadeOut('fast');
             $(this ).fadeOut('fast');
         });
     
     // We're going to use jQuery to transform the settings page into a tabbed interface
-    var $$ = $( 'form[action="options.php"]' );
-    var tabs = $( '<h2></h2>' ).attr('id', 'siteorigin-settings-tab-wrapper').addClass( 'nav-tab-wrapper' ).prependTo( $$ );
-    
-    $$.find( 'h3' ).each( function ( i, el ) {
+    var $optionsForm = $( 'form[action="options.php"]' );
+    var tabs = $( '<h2></h2>' ).attr('id', 'siteorigin-settings-tab-wrapper').addClass( 'nav-tab-wrapper' ).prependTo( $optionsForm );
+
+    $optionsForm.find( 'h3' ).each( function ( i, el ) {
         var h = $( el ).hide();
         var a = $( '<a href="#"></a>' ).addClass( 'nav-tab' ).html( h.html() ).appendTo( tabs );
         if ( i == 0 ) a.addClass( 'nav-tab-active' );
 
         var table = h.next().hide();
         a.click( function () {
-            $$.find( '> table' ).hide();
-            table.show();
-            tabs.find( 'a' ).removeClass( 'nav-tab-active' );
             a.addClass( 'nav-tab-active' );
+            setTimeout(function(){
+                // We'll remove the active tab with a slight delay to prevent the pixel jump
+                tabs.find( 'a').not(a).removeClass( 'nav-tab-active' );
+            }, 50);
+
+            // Change the tab we're displaying
+            $optionsForm.find( '> table').hide();
+            table.show();
 
             $( '#current-tab-field' ).val( i );
             
@@ -147,16 +152,19 @@ jQuery( function ( $ ) {
             return false;
         } );
 
-        if ( i == getUserSetting('siteorigin_settings_tab', 0) || (i == 0 && getUserSetting('siteorigin_settings_tab', 0) > $$.find( 'h3' ).length) ) a.click();
+        if ( i == getUserSetting('siteorigin_settings_tab', 0) || (i == 0 && getUserSetting('siteorigin_settings_tab', 0) > $optionsForm.find( 'h3' ).length) ) a.click();
     } );
     
     // Autofill
     $('.input-field-select')
         .change(function(){
-            var c = $(this ).closest('td' ).find('input');
-            c.val($(this ).val());
-            $(this ).val('')
+            var c = $(this ).closest('td').find('input');
+            c.val( $(this ).val() );
         });
+
+    $('input.siteorigin-settings-has-options').keyup(function(){
+        $(this ).closest('td').find('.input-field-select').val( $(this).val() );
+    }).keyup();
 
     // Highlight the correct setting
     if(window.location.hash != ''){
@@ -219,4 +227,68 @@ jQuery( function ( $ ) {
     setTimeout( function () {
         $( '#setting-updated' ).slideUp();
     }, 5000 );
+
+    // Add a Go Premium button
+    if( !siteoriginSettings.premium.isPremium && siteoriginSettings.premium.hasPremium ) {
+        var upgradeLink = $('<div id="upgrade-to-premium" class="screen-meta-toggle"><a href="' + siteoriginSettings.premium.premiumUrl + '" target="_blank">' + siteoriginSettings.premium.name + '</a></div>');
+        $('#screen-meta-links').append(upgradeLink);
+    }
+
+    // Now, lets handle the preview
+    var previewModal;
+    $('#siteorigin-settings-form .siteorigin-settings-preview-button').click( function(e){
+        e.preventDefault();
+
+        // Lets create the modal
+        if( previewModal == null ) {
+            previewModal = $( $('#settings-preview-modal-template').html()).appendTo('body');
+        }
+        else{
+            previewModal.show();
+        }
+
+
+        // Submit the preview to the iframe
+        var submitToIframe = function(){
+            // And now submit the form to this iframe
+            var $f = $('#siteorigin-settings-form');
+            $f
+                .attr({
+                    'target': 'siteorigin-settings-preview-iframe',
+                    'action' : previewModal.find('iframe').attr('src')
+                });
+            var $hidden = $('<input type="hidden" name="siteorigin_settings_is_preview" value="true" />').appendTo($f);
+            $f.submit();
+            $hidden.remove();
+            $f
+                .attr({
+                    'target': '_self',
+                    'action' : 'options.php'
+                });
+        }
+        submitToIframe();
+
+        // After the iframe has loaded, intercept all link clicks so we can continue the preview.
+        previewModal.find('iframe').load(function(){
+            var iframe = $(this);
+            $(this).contents().find('a').click(function(e){
+                e.preventDefault();
+
+                // Ignore this click if it's going outside the current site.
+                if( $(this).prop('href').indexOf( iframe.data('home') ) != 0) {
+                    return false;
+                }
+
+                iframe.attr( 'src', $(this).prop('href') );
+                submitToIframe();
+            })
+        });
+
+        // Handle closing the modal
+        previewModal.find('.siteorigin-settings-close').click(function(){
+            previewModal.hide();
+        });
+    } );
+
+
 } );

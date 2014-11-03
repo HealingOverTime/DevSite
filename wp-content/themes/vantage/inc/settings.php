@@ -13,7 +13,6 @@
  * @since vantage 1.0
  */
 function vantage_theme_settings(){
-
 	siteorigin_settings_add_section( 'logo', __('Logo', 'vantage' ) );
 	siteorigin_settings_add_section( 'layout', __('Layout', 'vantage' ) );
 	siteorigin_settings_add_section( 'home', __('Home', 'vantage' ) );
@@ -193,7 +192,7 @@ function vantage_theme_settings(){
 	) );
 
 }
-add_action('admin_init', 'vantage_theme_settings');
+add_action('siteorigin_settings_init', 'vantage_theme_settings');
 
 /**
  * Setup theme default settings.
@@ -203,10 +202,7 @@ add_action('admin_init', 'vantage_theme_settings');
  * @since vantage 1.0
  */
 function vantage_theme_setting_defaults($defaults){
-	$defaults['logo_image'] = array(
-		get_template_directory_uri().'/images/logo.png', 40, 181
-	);
-
+	$defaults['logo_image'] = false;
 	$defaults['logo_image_retina'] = false;
 	$defaults['logo_header_text'] = __('Call me! Maybe?', 'vantage');
 
@@ -268,3 +264,8 @@ function vantage_feature_suggestion_url($url){
 	return 'http://sorig.in/vantage-suggestions';
 }
 add_filter('siteorigin_settings_suggest_features_url', 'vantage_feature_suggestion_url');
+
+function vantage_siteorigin_settings_page_icon($icon){
+	return get_template_directory_uri().'/images/settings-icon.png';
+}
+add_filter('siteorigin_settings_page_icon', 'vantage_siteorigin_settings_page_icon');
