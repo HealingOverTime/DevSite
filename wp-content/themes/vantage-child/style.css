@@ -231,3 +231,7 @@ color: #646464;
 padding: 10px 25px !important;
 font-size: 1em !important;
 }
+
+#secondary .widget .widget-title, #footer-widgets .widget .widget-title{
+color: #ffffff;
+}
