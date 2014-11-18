@@ -235,3 +235,7 @@ font-size: 1em !important;
 #secondary .widget .widget-title, #footer-widgets .widget .widget-title{
 color: #ffffff;
 }
+
+#page-title{
+color: #ffffff;
+}
